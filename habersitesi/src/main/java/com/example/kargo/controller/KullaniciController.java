@@ -9,6 +9,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+// RequestMethod hatası almamak için bu import şart:
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/kullanici")
-@CrossOrigin(origins = "*")
+// 🔥 BURASI DÜKKANIN ANAHTARI: Tüm bağlantılara ve metodlara izin veriyoruz!
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class KullaniciController {
 
     @Autowired
@@ -156,7 +159,6 @@ public class KullaniciController {
                 .orElse(null);
     }
 
-    // 🔥  KAYDEDİLEN HABERİ LİSTEDEN SİLME METODU
     @DeleteMapping("/{kullaniciId}/kaydedilenler/{haberId}")
     public ResponseEntity<String> kaydedilenHaberiSil(@PathVariable Long kullaniciId, @PathVariable Long haberId) {
         Optional<Kullanici> kullaniciOpt = kullaniciRepo.findById(kullaniciId);
