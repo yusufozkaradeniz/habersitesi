@@ -4,12 +4,15 @@ import com.example.kargo.model.Bildirim;
 import com.example.kargo.repository.BildirimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+// 🔥 HATA ALMAMAK İÇİN BU IMPORT ŞART:
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/bildirimler")
-@CrossOrigin(origins = "*")
+// 🛡️ BİLDİRİMLERİN OKUNMASI VE SİLİNMESİ İÇİN TAM YETKİ VERİYORUZ:
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class BildirimController {
 
     @Autowired
