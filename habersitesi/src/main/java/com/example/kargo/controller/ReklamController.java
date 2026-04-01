@@ -4,12 +4,15 @@ import com.example.kargo.model.Reklam;
 import com.example.kargo.service.ReklamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+// 🔥 HATA ALMAMAK İÇİN BU IMPORT ŞART:
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/reklamlar")
-@CrossOrigin(origins = "*") // React ile Java'nın el sıkışmasını sağlar
+// 🛡️ REKLAMLARIN YÖNETİLMESİ İÇİN TÜM KAPILARI AÇIYORUZ:
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class ReklamController {
 
     @Autowired
@@ -32,6 +35,7 @@ public class ReklamController {
     public void sil(@PathVariable Long id) {
         reklamService.reklamSil(id);
     }
+
     // 11. Madde: Reklam Güncelle (PUT)
     @PutMapping("/{id}")
     public Reklam guncelle(@PathVariable Long id, @RequestBody Reklam reklam) {
