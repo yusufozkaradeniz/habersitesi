@@ -9,7 +9,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-// RequestMethod hatası almamak için bu import şart:
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
@@ -18,8 +17,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/kullanici")
-// 🔥 BURASI DÜKKANIN ANAHTARI: Tüm bağlantılara ve metodlara izin veriyoruz!
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
+// 🔥 BURASI GÜNCELLENDİ: Chrome'un 'www' inadını kırmak için her iki adresi de açıkça belirttik.
+@CrossOrigin(
+    origins = {"https://yusufozkaradeniz.xyz", "https://www.yusufozkaradeniz.xyz"}, 
+    allowedHeaders = "*", 
+    methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS},
+    allowCredentials = "true"
+)
 public class KullaniciController {
 
     @Autowired
