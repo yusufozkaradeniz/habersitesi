@@ -6,13 +6,16 @@ import com.example.kargo.service.HaberService;
 import com.example.kargo.repository.BildirimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+// 🔥 HATA ALMAMAK İÇİN BU IMPORT ŞART:
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/haberler")
-@CrossOrigin(origins = "http://localhost:3000")
+// 🛡️ HABERLERİN EKİNDE SABİT KALMASINI SAĞLAYAN SİHİRLİ SATIR:
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class HaberController {
 
     @Autowired
@@ -29,7 +32,6 @@ public class HaberController {
     // ✅ HABER EKLEME VE OTOMATİK BİLDİRİM
     @PostMapping
     public Haber haberEkle(@RequestBody Haber haber) {
-        // Haber modeline gorselUrl eklediğimiz için @RequestBody bunu otomatik yakalar.
         Haber yeniHaber = haberService.haberKaydet(haber);
 
         // 🔔 BİLDİRİM OLUŞTURMA
